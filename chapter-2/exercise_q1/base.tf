@@ -1,5 +1,9 @@
+#QUESTION1: Create a basic aws EC2 instance using terraform
+####################
 
 
+#SOLUTION:
+####################
 provider "aws" {
   region = "ap-south-1"
 }
