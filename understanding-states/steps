@@ -1,0 +1,50 @@
+1) AWS ---s3 bucket 
+
+
+2) AWS -- dynamodb ( partition id -- LockID ) 
+
+
+two folder 
+
+
+for both folder1  and folder 2
+
+create provider.tf 
+provider "aws" {
+  access_key = "AXXXXXXPBYDGLO66Q"
+  secret_key = "0jJw3OinI7TB4e11+KEQSDWTCwxSR9l+C6Y"
+  region     = "ap-south-1"
+}
+
+terraform {
+  backend "s3" {
+    bucket = "nttdatabucketforstate"  # change the bucket name
+    key    = "vishal-state/terraform.tfstate"   # chaneg your key name 
+    region = "ap-south-1"
+    dynamodb_table = "vicky-dynamo-locking" # give you dynamodb tabel 
+  }
+}
+
+terraform init on both folder 
+##################################################################
+
+main.tf on one folder 
+instance creation 
+
+terraform plan 
+terraform apply 
+#####################
+
+copy the same main.tf in folder 2 
+try to modify the tag 
+terraform plan 
+terraform apply 
+
+####################
+
+just to see lock in action 
+
+
+go back to folder 2 one and run terraform destroy --- don't approve 
+go back to folder 2 at the same time and run terraform plan -- and you should be able to terraform lock in action 
+#################################################################################################
